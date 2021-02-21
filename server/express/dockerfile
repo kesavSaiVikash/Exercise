@@ -1,0 +1,8 @@
+# install and cache app dependencies
+FROM node:10-alpine as builder
+COPY package.json package-lock.json ./
+RUN npm install --only=prod && npm install nodemon && mkdir /express && mv ./node_modules ./express
+WORKDIR /express
+COPY . .
+EXPOSE 9000
+CMD [ "npm", "start" ]
